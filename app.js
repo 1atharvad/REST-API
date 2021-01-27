@@ -78,7 +78,6 @@ app.put('/users/:id', (req, res) => {
         var flag = 0;
         var dt = JSON.parse(data);
 
-        jsonData.id = parseInt(req.params.id);
         dt.forEach((element, index) => {
             if (element.id === parseInt(req.params.id)) {
                 dt.splice(index, 1, jsonData);
@@ -86,6 +85,7 @@ app.put('/users/:id', (req, res) => {
             }
         });
         if (flag === 0) {
+            jsonData.id = parseInt(req.params.id);
             dt.splice(dt.length, 0, jsonData);
         }
         fs.writeFile("./db.json", JSON.stringify(dt, null, 2), () => {
@@ -99,7 +99,6 @@ app.patch('/users/:id', (req, res) => {
         var flag = 0;
         var dt = JSON.parse(data);
 
-        jsonData.id = parseInt(req.params.id);
         dt.forEach((element, index) => {
             if (element.id === parseInt(req.params.id)) {
                 Object.keys(jsonData).forEach((key) => {
